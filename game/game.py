@@ -1,10 +1,12 @@
 # Importamos librerias
 import sys
 import pygame
+import random
 
 from .config import *
 from .platform import Platform
 from .player import Player
+from .wall import Wall
 
 class Game: # inicializamos
     def __init__(self):
@@ -27,9 +29,28 @@ class Game: # inicializamos
         self.player = Player(100, self.platform.rect.top - 220)
 
         self.sprites = pygame.sprite.Group() # Agrupamos
+        self.walls = pygame.sprite.Group() # Almacenamos obstaculos
 
         self.sprites.add(self.platform)
         self.sprites.add(self.player)
+
+        self.generate_walls()
+
+    def generate_walls(self):
+
+        last_position = WIDTH + 100
+
+        if not len(self.walls) > 0:
+
+            for w in range(0, MAX_WALLS):
+
+                left = random.randrange(last_position + 200, last_position + 400)
+                wall = Wall(left, self.platform.rect.top)
+
+                last_position = wall.rect.right
+
+                self.sprites.add(wall)
+                self.walls.add(wall)
 
     def run(self):
         while self.running:
@@ -56,6 +77,8 @@ class Game: # inicializamos
 
     def update(self):
         pygame.display.flip() # Actualiza la superficie
+
+        pygame.time.delay(20)
 
         self.sprites.update()
 
