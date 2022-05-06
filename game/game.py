@@ -92,7 +92,15 @@ class Game: # inicializamos
         self.sprites.update()
 
         self.player.validate_platform(self.platform)
-        
+
+        self.update_elements(self.walls)
+        self.generate_walls()
+
+    def update_elements(self, elements):
+        for element in elements:
+            if not element.rect.right > 0:
+                element.kill()
+
     def stop(self):
         self.player.stop()
         self.stop_elements(self.walls)
