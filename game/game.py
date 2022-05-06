@@ -82,7 +82,10 @@ class Game: # inicializamos
 
             wall = self.player.collide_with(self.walls)
             if wall:
-                self.stop()
+                if self.player.collide_bottom(wall):
+                    self.player.skid(wall)
+                else:
+                    self.stop()
 
         pygame.time.delay(20)
 
