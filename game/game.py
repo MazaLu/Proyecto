@@ -18,6 +18,8 @@ class Game: # inicializamos
         self.running = True
         self.playing = True
 
+        self.clock = pygame.time.Clock()
+
     def start(self):
         self.new()
 
@@ -55,6 +57,7 @@ class Game: # inicializamos
 
     def run(self):
         while self.running:
+            self.clock.tick(FPS)
             self.events()
             self.update()
             self.draw()
