@@ -25,6 +25,7 @@ class Game: # inicializamos
         self.new()
 
     def new(self): # Genera nuevos elementos 
+        self.score = 0
         self.generate_elements()
         self.run()
 
@@ -107,6 +108,13 @@ class Game: # inicializamos
                 else:
                     self.stop()
 
+            coin = self.player.collide_with(self.coins)
+            if coin:
+                self.score += 1
+                coin.kill()
+
+                print(self.score)
+
         pygame.time.delay(20)
 
         self.sprites.update()
@@ -114,6 +122,8 @@ class Game: # inicializamos
         self.player.validate_platform(self.platform)
 
         self.update_elements(self.walls)
+        self.update_elements(self.coins)
+
         self.generate_walls()
 
     def update_elements(self, elements):
