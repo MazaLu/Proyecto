@@ -1,6 +1,6 @@
 # Importamos librerias
+import os
 import sys
-from tkinter import scrolledtext
 import pygame
 import random
 
@@ -23,6 +23,9 @@ class Game: # inicializamos
         self.clock = pygame.time.Clock()
 
         self.font = pygame.font.match_font(FONT)
+
+        self.dir = os.path.dirname(__file__)
+        self.dir_sounds = os.path.join(self.dir, "sounds")
 
     def start(self):
         self.new()
@@ -120,6 +123,9 @@ class Game: # inicializamos
 
                 print(self.score)
 
+            sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, "coin.wav"))
+            sound.play()
+
         pygame.time.delay(20)
 
         self.sprites.update()
@@ -146,8 +152,11 @@ class Game: # inicializamos
         for element in elements:
             element.stop()
 
+    def score_format(self):
+        return "Score : {}".format(self.score)
+
     def draw_text(self):
-        self.display_text(str(self.score), 30, BLACK, WIDTH//2, 30)
+        self.display_text(self.score_format(), 30, BLACK, WIDTH//2, 30)
 
     def display_text(self, text, size, color, pos_x, pos_y):
         font = pygame.font.Font(self.font, size)
