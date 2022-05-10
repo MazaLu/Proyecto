@@ -109,9 +109,10 @@ class Game: # inicializamos
 
         self.sprites.draw(self.surface)
 
+        pygame.display.flip() # Actualiza la superficie
+
     def update(self):
         if self.playing:
-            pygame.display.flip() # Actualiza la superficie
 
             wall = self.player.collide_with(self.walls)
             if wall:
@@ -166,6 +167,10 @@ class Game: # inicializamos
     def draw_text(self):
         self.display_text(self.score_format(), 30, BLACK, WIDTH//2, 35)
         self.display_text(self.level_format(), 30, BLACK, 60, 35)
+
+        if not self.playing:
+            self.display_text("¡Perdiste!", 60, RED, WIDTH//2, HEIGHT//2)
+            self.display_text("Preciona R para reiniciar el juego", 30, GREEN, WIDTH // 2, 70)
 
     def display_text(self, text, size, color, pos_x, pos_y):
         font = pygame.font.Font(self.font, size)
