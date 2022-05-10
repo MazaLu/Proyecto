@@ -123,8 +123,8 @@ class Game: # inicializamos
 
                 print(self.score)
 
-            sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, "coin.wav"))
-            sound.play()
+                sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, "coin.wav"))
+                sound.play()
 
         pygame.time.delay(20)
 
@@ -143,6 +143,9 @@ class Game: # inicializamos
                 element.kill()
 
     def stop(self):
+        sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, "lose.wav"))
+        sound.play()
+
         self.player.stop()
         self.stop_elements(self.walls)
 
