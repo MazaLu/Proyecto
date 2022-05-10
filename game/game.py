@@ -32,6 +32,8 @@ class Game: # inicializamos
 
     def new(self): # Genera nuevos elementos 
         self.score = 0
+        self.level = 0
+
         self.generate_elements()
         self.run()
 
@@ -47,7 +49,6 @@ class Game: # inicializamos
         self.sprites.add(self.player)
 
         self.generate_walls()
-        self.generate_coins()
 
     def generate_walls(self):
 
@@ -64,6 +65,9 @@ class Game: # inicializamos
 
                 self.sprites.add(wall)
                 self.walls.add(wall)
+
+            self.level += 1
+            self.generate_coins()
 
     def generate_coins(self):
 
@@ -121,8 +125,6 @@ class Game: # inicializamos
                 self.score += 1
                 coin.kill()
 
-                print(self.score)
-
                 sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, "coin.wav"))
                 sound.play()
 
@@ -158,8 +160,12 @@ class Game: # inicializamos
     def score_format(self):
         return "Score : {}".format(self.score)
 
+    def level_format(self):
+        return "level: {}".format(self.level)
+
     def draw_text(self):
-        self.display_text(self.score_format(), 30, BLACK, WIDTH//2, 30)
+        self.display_text(self.score_format(), 30, BLACK, WIDTH//2, 35)
+        self.display_text(self.level_format(), 30, BLACK, 60, 35)
 
     def display_text(self, text, size, color, pos_x, pos_y):
         font = pygame.font.Font(self.font, size)
