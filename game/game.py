@@ -27,6 +27,7 @@ class Game: # inicializamos
         self.dir_sounds = os.path.join(self.dir, "sounds")
 
     def start(self):
+        self.menu()
         self.new()
 
     def new(self): # Genera nuevos elementos 
@@ -183,3 +184,27 @@ class Game: # inicializamos
         rect.midtop = (pos_x, pos_y)
 
         self.surface.blit(text, rect)
+
+    def menu(self):
+        self.surface.fill(GREEN_BLUE)
+        self.display_text("Presiona una tecla para comenzar", 30, BLACK, WIDTH//2, 10)
+
+        pygame.display.flip()
+
+        self.wait()
+
+    def wait(self):
+        wait = True
+
+        while wait:
+            self.clock.tick(FPS)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    wait = False
+                    self.running = False
+                    pygame.quit()
+                    sys.exit()
+
+                if event.type == pygame.KEYUP:
+                    wait = False
