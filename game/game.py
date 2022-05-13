@@ -25,6 +25,7 @@ class Game: # inicializamos
 
         self.dir = os.path.dirname(__file__)
         self.dir_sounds = os.path.join(self.dir, "sounds")
+        self.dir_images = os.path.join(self.dir, "images")
 
     def start(self):
         self.menu()
@@ -40,7 +41,7 @@ class Game: # inicializamos
 
     def generate_elements(self): # Generamos los diferentes elementos
         self.platform = Platform()
-        self.player = Player(100, self.platform.rect.top - 220)
+        self.player = Player(100, self.platform.rect.top - 220, self.dir_images)
 
         self.sprites = pygame.sprite.Group() # Agrupamos
         self.walls = pygame.sprite.Group() # Almacenamos obstaculos
@@ -60,7 +61,7 @@ class Game: # inicializamos
             for w in range(0, MAX_WALLS):
 
                 left = random.randrange(last_position + 200, last_position + 400)
-                wall = Wall(left, self.platform.rect.top)
+                wall = Wall(left, self.platform.rect.top, self.dir_images)
 
                 last_position = wall.rect.right
 
@@ -77,7 +78,7 @@ class Game: # inicializamos
         for c in range(0, MAX_COINS):
             pos_x = random.randrange(last_position + 180, last_position + 300)
 
-            coin = Coin(pos_x, 145)
+            coin = Coin(pos_x, 145, self.dir_images)
 
             last_position = coin.rect.right
 
