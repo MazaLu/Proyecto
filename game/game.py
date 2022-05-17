@@ -35,6 +35,7 @@ class Game: # inicializamos
         self.score = 0
         self.level = 0
         self.playing = True
+        self.background = pygame.image.load(os.path.join(self.dir_images,"background1.jpg"))
 
         self.generate_elements()
         self.run()
@@ -108,7 +109,7 @@ class Game: # inicializamos
             self.new()
 
     def draw(self):
-        self.surface.fill(GREY) # Asignamos color
+        self.surface.blit(self.background,(0,0)) # Asignamos color
 
         self.draw_text()
 
